@@ -10,23 +10,23 @@ namespace Replica.Domain.Configurations
         {
             builder.Property(u => u.FirstName)
                 .IsRequired()
-                .HasMaxLength(64);
+                .HasMaxLength(24);
 
             builder.Property(u => u.LastName)
                 .IsRequired()
-                .HasMaxLength(64);
+                .HasMaxLength(24);
 
             builder.Property(u => u.Nickname)
                 .IsRequired()
-                .HasMaxLength(64);
+                .HasMaxLength(32);
 
             builder.Property(u => u.Phone)
                 .IsRequired()
-                .HasMaxLength(32);
+                .HasMaxLength(16);
 
             builder.Property(u => u.Email)
                 .IsRequired()
-                .HasMaxLength(64);
+                .HasMaxLength(32);
 
             builder.Property(u => u.Birthday)
                 .IsRequired()

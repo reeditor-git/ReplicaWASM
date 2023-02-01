@@ -8,7 +8,5 @@
         public string Description { get; set; }
 
         public ICollection<Subcategory>? Subcategorys { get; set; }
-
-        public ICollection<ProductSize>? ProductSizes { get; set; }
     }
 }

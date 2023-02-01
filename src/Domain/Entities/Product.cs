@@ -7,7 +7,7 @@
 
         public string Description { get; set; }
 
-        public ICollection<ProductSize>? Size { get; set; }
+        public decimal Price { get; set; }
 
         public string ImageUrl { get; set; }
 

@@ -12,7 +12,7 @@ using Replica.Domain;
 namespace Replica.Domain.Migrations
 {
     [DbContext(typeof(ReplicaDbContext))]
-    [Migration("20230201124141_Init")]
+    [Migration("20230201204501_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -148,6 +148,9 @@ namespace Replica.Domain.Migrations
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(6,2)");
+
                     b.Property<Guid>("SubcategoryId")
                         .HasColumnType("uniqueidentifier");
 
@@ -158,34 +161,6 @@ namespace Replica.Domain.Migrations
                     b.HasIndex("SubcategoryId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Replica.Domain.Entities.ProductSize", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(6,2)");
-
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductSizes");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.RefreshToken", b =>
@@ -325,13 +300,13 @@ namespace Replica.Domain.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -341,13 +316,13 @@ namespace Replica.Domain.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Nickname")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -355,8 +330,8 @@ namespace Replica.Domain.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
@@ -432,17 +407,6 @@ namespace Replica.Domain.Migrations
                     b.Navigation("Subcategory");
                 });
 
-            modelBuilder.Entity("Replica.Domain.Entities.ProductSize", b =>
-                {
-                    b.HasOne("Replica.Domain.Entities.Category", null)
-                        .WithMany("ProductSizes")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("Replica.Domain.Entities.Product", null)
-                        .WithMany("Size")
-                        .HasForeignKey("ProductId");
-                });
-
             modelBuilder.Entity("Replica.Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Replica.Domain.Entities.User", "User")
@@ -485,8 +449,6 @@ namespace Replica.Domain.Migrations
 
             modelBuilder.Entity("Replica.Domain.Entities.Category", b =>
                 {
-                    b.Navigation("ProductSizes");
-
                     b.Navigation("Subcategorys");
                 });
 
@@ -498,11 +460,6 @@ namespace Replica.Domain.Migrations
             modelBuilder.Entity("Replica.Domain.Entities.Place", b =>
                 {
                     b.Navigation("Tags");
-                });
-
-            modelBuilder.Entity("Replica.Domain.Entities.Product", b =>
-                {
-                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.Role", b =>
