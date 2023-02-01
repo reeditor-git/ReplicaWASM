@@ -1,8 +1,14 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using Replica.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var connectionString = builder.Configuration.GetConnectionString("ReplicaDb");
+
+builder.Services.AddDbContext<ReplicaDbContext>(options =>
+options.UseSqlServer(connectionString, x => x.MigrationsAssembly("Replica.Domain")));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
