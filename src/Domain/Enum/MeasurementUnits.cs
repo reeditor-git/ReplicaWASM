@@ -3,8 +3,8 @@
     public enum MeasurementUnits
     {
         кг = 1,
-        г = 2,
-        л = 3,
+        л = 2,
+        г = 3,
         мл = 4
     }
 }

@@ -11,7 +11,7 @@ namespace Replica.Domain.Entities
 
         public decimal RentPrice { get; set; }
 
-        public PlaceAvailable PlaceAvailable { get; set; }
+        public PlaceAvailable Available { get; set; }
 
         public ICollection<Tag>? Tags { get; set; }
     }
