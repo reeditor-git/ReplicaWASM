@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
 
-        public ICollection<Product>? Products { get; set; }
-        public ICollection<Place>? Places { get; set; }
+        public ICollection<ProductTag>? ProductTags { get; set; }
+        public ICollection<PlaceTag>? PlaceTags { get; set; }
     }
 }

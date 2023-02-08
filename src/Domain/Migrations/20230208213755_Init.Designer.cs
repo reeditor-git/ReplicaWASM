@@ -12,7 +12,7 @@ using Replica.Domain;
 namespace Replica.Domain.Migrations
 {
     [DbContext(typeof(ReplicaDbContext))]
-    [Migration("20230207164103_Init")]
+    [Migration("20230208213755_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -24,36 +24,6 @@ namespace Replica.Domain.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("PlaceTag", b =>
-                {
-                    b.Property<Guid>("PlacesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TagsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PlacesId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("PlaceTag");
-                });
-
-            modelBuilder.Entity("ProductTag", b =>
-                {
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TagsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ProductsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("ProductTag");
-                });
 
             modelBuilder.Entity("Replica.Domain.Entities.Category", b =>
                 {
@@ -192,7 +162,7 @@ namespace Replica.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("36fc6293-a31f-4240-84fd-8d5676fe1e0e"),
+                            Id = new Guid("e066b5a4-534e-462d-a64a-3cb2c33338a5"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -202,7 +172,7 @@ namespace Replica.Domain.Migrations
                         },
                         new
                         {
-                            Id = new Guid("54c0cfd9-3980-4ba1-9a05-3f6fa59795df"),
+                            Id = new Guid("8d5fd035-7b5c-46d4-adb7-01acae47226e"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -212,7 +182,7 @@ namespace Replica.Domain.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5cd5f0e3-454c-43ca-b7c9-cb1027ae2d62"),
+                            Id = new Guid("097ad94f-7abb-4364-afe1-c0a8ff3a07a5"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -222,7 +192,7 @@ namespace Replica.Domain.Migrations
                         },
                         new
                         {
-                            Id = new Guid("79e279ea-e19d-4179-ac13-a9ca421cf56b"),
+                            Id = new Guid("36e355e9-e3ec-43be-bcd0-174393bc2a4b"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -232,7 +202,7 @@ namespace Replica.Domain.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e2602a5d-6d7f-4b3f-bbf9-e2910208d94f"),
+                            Id = new Guid("a1dfd515-4a4f-4912-9f6f-9de4ea3e48e9"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -240,6 +210,21 @@ namespace Replica.Domain.Migrations
                             RentPrice = 0m,
                             SeatingCapacity = 4
                         });
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.PlaceTag", b =>
+                {
+                    b.Property<Guid>("PlaceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PlaceId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PlaceTags");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.Product", b =>
@@ -296,7 +281,7 @@ namespace Replica.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e2301e5a-57b0-494a-8bfb-1b4fa3cff0ce"),
+                            Id = new Guid("7c459560-4ce9-4192-8dfa-01dd1daaeb61"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -307,7 +292,7 @@ namespace Replica.Domain.Migrations
                         },
                         new
                         {
-                            Id = new Guid("aa1d3022-d05e-4e2a-b48d-27c1c40f7de1"),
+                            Id = new Guid("23b9d661-5aee-4750-a680-fca528572670"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -318,7 +303,7 @@ namespace Replica.Domain.Migrations
                         },
                         new
                         {
-                            Id = new Guid("21d0c8c8-4ccd-48cd-8279-db933cf199c9"),
+                            Id = new Guid("85aa587e-8e44-415d-afd4-b6a1056e4b80"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -329,7 +314,7 @@ namespace Replica.Domain.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8f4d8fe0-70d5-40a7-9a4c-0e8e9531a0b3"),
+                            Id = new Guid("ff72d6b5-8b67-48ab-8e61-7edae8154639"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -338,6 +323,21 @@ namespace Replica.Domain.Migrations
                             Size = 180.0,
                             SubcategoryId = new Guid("afa905f9-8739-47db-8916-d728d47f8ea2")
                         });
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.ProductTag", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ProductTags");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.RefreshToken", b =>
@@ -819,36 +819,6 @@ namespace Replica.Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PlaceTag", b =>
-                {
-                    b.HasOne("Replica.Domain.Entities.Place", null)
-                        .WithMany()
-                        .HasForeignKey("PlacesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Replica.Domain.Entities.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProductTag", b =>
-                {
-                    b.HasOne("Replica.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Replica.Domain.Entities.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Replica.Domain.Entities.Order", b =>
                 {
                     b.HasOne("Replica.Domain.Entities.Reservation", "Reservation")
@@ -868,6 +838,25 @@ namespace Replica.Domain.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Replica.Domain.Entities.PlaceTag", b =>
+                {
+                    b.HasOne("Replica.Domain.Entities.Place", "Place")
+                        .WithMany("PlaceTags")
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Replica.Domain.Entities.Tag", "Tag")
+                        .WithMany("PlaceTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Place");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("Replica.Domain.Entities.Product", b =>
                 {
                     b.HasOne("Replica.Domain.Entities.Order", null)
@@ -881,6 +870,25 @@ namespace Replica.Domain.Migrations
                         .IsRequired();
 
                     b.Navigation("Subcategory");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.ProductTag", b =>
+                {
+                    b.HasOne("Replica.Domain.Entities.Product", "Product")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Replica.Domain.Entities.Tag", "Tag")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.RefreshToken", b =>
@@ -937,6 +945,16 @@ namespace Replica.Domain.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Replica.Domain.Entities.Place", b =>
+                {
+                    b.Navigation("PlaceTags");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("ProductTags");
+                });
+
             modelBuilder.Entity("Replica.Domain.Entities.Role", b =>
                 {
                     b.Navigation("Users");
@@ -945,6 +963,13 @@ namespace Replica.Domain.Migrations
             modelBuilder.Entity("Replica.Domain.Entities.Subcategory", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.Tag", b =>
+                {
+                    b.Navigation("PlaceTags");
+
+                    b.Navigation("ProductTags");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.User", b =>

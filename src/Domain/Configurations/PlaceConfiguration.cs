@@ -32,9 +32,6 @@ namespace Replica.Domain.Configurations
             builder.Property(p => p.Available)
                 .HasDefaultValue(Enum.PlaceAvailable.Вільно);
 
-            builder.HasMany(p => p.Tags)
-                .WithMany(p => p.Places);
-
             builder.HasData(
                 new Place
                 {

@@ -135,24 +135,24 @@ namespace Replica.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlaceTag",
+                name: "PlaceTags",
                 columns: table => new
                 {
-                    PlacesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TagsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    PlaceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlaceTag", x => new { x.PlacesId, x.TagsId });
+                    table.PrimaryKey("PK_PlaceTags", x => new { x.PlaceId, x.TagId });
                     table.ForeignKey(
-                        name: "FK_PlaceTag_Places_PlacesId",
-                        column: x => x.PlacesId,
+                        name: "FK_PlaceTags_Places_PlaceId",
+                        column: x => x.PlaceId,
                         principalTable: "Places",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlaceTag_Tags_TagsId",
-                        column: x => x.TagsId,
+                        name: "FK_PlaceTags_Tags_TagId",
+                        column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -238,24 +238,24 @@ namespace Replica.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductTag",
+                name: "ProductTags",
                 columns: table => new
                 {
-                    ProductsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TagsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductTag", x => new { x.ProductsId, x.TagsId });
+                    table.PrimaryKey("PK_ProductTags", x => new { x.ProductId, x.TagId });
                     table.ForeignKey(
-                        name: "FK_ProductTag_Products_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_ProductTags_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductTag_Tags_TagsId",
-                        column: x => x.TagsId,
+                        name: "FK_ProductTags_Tags_TagId",
+                        column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -275,25 +275,26 @@ namespace Replica.Domain.Migrations
 
             migrationBuilder.InsertData(
                 table: "Places",
+                columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "RentPrice", "SeatingCapacity" },
+                values: new object[] { new Guid("097ad94f-7abb-4364-afe1-c0a8ff3a07a5"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з XBox", 300m, 4 });
+
+            migrationBuilder.InsertData(
+                table: "Places",
                 columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "SeatingCapacity" },
-                values: new object[] { new Guid("36fc6293-a31f-4240-84fd-8d5676fe1e0e"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 1", 2 });
+                values: new object[] { new Guid("36e355e9-e3ec-43be-bcd0-174393bc2a4b"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 2", 4 });
 
             migrationBuilder.InsertData(
                 table: "Places",
                 columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "RentPrice", "SeatingCapacity" },
-                values: new object[,]
-                {
-                    { new Guid("54c0cfd9-3980-4ba1-9a05-3f6fa59795df"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з PS5", 400m, 6 },
-                    { new Guid("5cd5f0e3-454c-43ca-b7c9-cb1027ae2d62"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з XBox", 300m, 4 }
-                });
+                values: new object[] { new Guid("8d5fd035-7b5c-46d4-adb7-01acae47226e"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з PS5", 400m, 6 });
 
             migrationBuilder.InsertData(
                 table: "Places",
                 columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "SeatingCapacity" },
                 values: new object[,]
                 {
-                    { new Guid("79e279ea-e19d-4179-ac13-a9ca421cf56b"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 2", 4 },
-                    { new Guid("e2602a5d-6d7f-4b3f-bbf9-e2910208d94f"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 3", 4 }
+                    { new Guid("a1dfd515-4a4f-4912-9f6f-9de4ea3e48e9"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 3", 4 },
+                    { new Guid("e066b5a4-534e-462d-a64a-3cb2c33338a5"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 1", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -371,10 +372,10 @@ namespace Replica.Domain.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "MeasurementUnits", "Name", "OrderId", "Price", "Size", "SubcategoryId" },
                 values: new object[,]
                 {
-                    { new Guid("21d0c8c8-4ccd-48cd-8279-db933cf199c9"), "", "*/Image/User/default-product-image.jpg", 3, "Пельмені домашні", null, 75m, 220.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") },
-                    { new Guid("8f4d8fe0-70d5-40a7-9a4c-0e8e9531a0b3"), "", "*/Image/User/default-product-image.jpg", 3, "Кабачкові рулети з вершковим сиром", null, 83m, 180.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") },
-                    { new Guid("aa1d3022-d05e-4e2a-b48d-27c1c40f7de1"), "", "*/Image/User/default-product-image.jpg", 3, "Борщ з телятиною", null, 87m, 350.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") },
-                    { new Guid("e2301e5a-57b0-494a-8bfb-1b4fa3cff0ce"), "", "*/Image/User/default-product-image.jpg", 3, "Сирний крем-суп", null, 75m, 300.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") }
+                    { new Guid("23b9d661-5aee-4750-a680-fca528572670"), "", "*/Image/User/default-product-image.jpg", 3, "Борщ з телятиною", null, 87m, 350.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") },
+                    { new Guid("7c459560-4ce9-4192-8dfa-01dd1daaeb61"), "", "*/Image/User/default-product-image.jpg", 3, "Сирний крем-суп", null, 75m, 300.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") },
+                    { new Guid("85aa587e-8e44-415d-afd4-b6a1056e4b80"), "", "*/Image/User/default-product-image.jpg", 3, "Пельмені домашні", null, 75m, 220.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") },
+                    { new Guid("ff72d6b5-8b67-48ab-8e61-7edae8154639"), "", "*/Image/User/default-product-image.jpg", 3, "Кабачкові рулети з вершковим сиром", null, 83m, 180.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -388,9 +389,9 @@ namespace Replica.Domain.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlaceTag_TagsId",
-                table: "PlaceTag",
-                column: "TagsId");
+                name: "IX_PlaceTags_TagId",
+                table: "PlaceTags",
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_OrderId",
@@ -403,9 +404,9 @@ namespace Replica.Domain.Migrations
                 column: "SubcategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductTag_TagsId",
-                table: "ProductTag",
-                column: "TagsId");
+                name: "IX_ProductTags_TagId",
+                table: "ProductTags",
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
@@ -432,10 +433,10 @@ namespace Replica.Domain.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PlaceTag");
+                name: "PlaceTags");
 
             migrationBuilder.DropTable(
-                name: "ProductTag");
+                name: "ProductTags");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");

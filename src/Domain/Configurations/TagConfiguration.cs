@@ -12,9 +12,6 @@ namespace Replica.Domain.Configurations
                 .IsRequired()
                 .HasMaxLength(32);
 
-            builder.HasMany(t => t.Products)
-                .WithMany(t => t.Tags);
-
             builder.HasData(
                 new Tag
                 {

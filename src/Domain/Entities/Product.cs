@@ -16,6 +16,6 @@ namespace Replica.Domain.Entities
         public Guid SubcategoryId { get; set; }
         public Subcategory Subcategory { get; set; }
 
-        public ICollection<Tag>? Tags { get; set; }
+        public ICollection<ProductTag>? ProductTags { get; set; }
     }
 }

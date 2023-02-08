@@ -15,8 +15,10 @@ namespace Replica.Domain
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<Place> Places { get; set; }
+        public DbSet<PlaceTag> PlaceTags { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

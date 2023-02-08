@@ -13,6 +13,6 @@ namespace Replica.Domain.Entities
 
         public PlaceAvailable Available { get; set; }
 
-        public ICollection<Tag>? Tags { get; set; }
+        public ICollection<PlaceTag>? PlaceTags { get; set; }
     }
 }
