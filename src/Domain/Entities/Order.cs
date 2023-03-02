@@ -1,4 +1,5 @@
-﻿using Replica.Domain.Enum;
+﻿using Replica.Domain.Common;
+using Replica.Domain.Enums;
 
 namespace Replica.Domain.Entities
 {
@@ -15,6 +16,6 @@ namespace Replica.Domain.Entities
         public ConfirmationStatus ConfirmationStatus { get; set; }
 
         public Guid UserID { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

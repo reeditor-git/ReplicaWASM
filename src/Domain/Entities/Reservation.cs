@@ -1,8 +1,11 @@
-﻿namespace Replica.Domain.Entities
+﻿using Replica.Domain.Common;
+
+namespace Replica.Domain.Entities
 {
     public class Reservation : BaseEntity
     {
-        public Place Place { get; set; }
+        public Guid PlaceId { get; set; }
+        public Place? Place { get; set; }
 
         public DateTime ReservationTime { get; set; }
     }

@@ -1,17 +1,24 @@
 using Microsoft.EntityFrameworkCore;
-using Replica.Domain;
+using Replica.Application;
+using Replica.Infrastructure;
+using Replica.Infrastructure.Context;
+using Replica.Server.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services
+    .AddApplication()
+    .AddInfrastructure()
+    .AddAuthorization()
+    .AddCustomAuthentication(builder.Configuration)
+    .AddCustomSwagger()
+    .AddRouting(x => x.LowercaseUrls = true)
+    .AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("ReplicaDb");
 
 builder.Services.AddDbContext<ReplicaDbContext>(options =>
-options.UseSqlServer(connectionString, x => x.MigrationsAssembly("Replica.Domain")));
-
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+options.UseSqlServer(connectionString, x => x.MigrationsAssembly("Replica.Infrastructure")));
 
 var app = builder.Build();
 
@@ -27,15 +34,21 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
 
-app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
+app.UseSwagger()
+   .UseSwaggerUI(options =>
+   {
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Replica API v1");
+   });
 
-app.UseRouting();
+app.UseHttpsRedirection()
+   .UseBlazorFrameworkFiles()
+   .UseStaticFiles()
+   .UseRouting()
+   .UseAuthorization()
+   .UseAuthentication();
 
-
-app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 
