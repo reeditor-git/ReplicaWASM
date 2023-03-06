@@ -12,7 +12,7 @@ using Replica.Infrastructure.Context;
 namespace Replica.Infrastructure.Migrations
 {
     [DbContext(typeof(ReplicaDbContext))]
-    [Migration("20230301180207_Init")]
+    [Migration("20230303111107_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -100,7 +100,7 @@ namespace Replica.Infrastructure.Migrations
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ReservationId")
+                    b.Property<Guid?>("ReservationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("TotalCost")
@@ -162,7 +162,7 @@ namespace Replica.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("18d830e9-e5c8-48d3-ba7f-591f16ef6552"),
+                            Id = new Guid("f9c16520-2579-4234-a579-4d68a7fbec23"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -172,7 +172,7 @@ namespace Replica.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("94fab537-4a8e-4e8b-9a52-852408434f55"),
+                            Id = new Guid("becb0025-890c-4bfd-a384-66525bb8c1e2"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -182,7 +182,7 @@ namespace Replica.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f5c1cd5f-9fa6-4541-be84-4cc2c515a97f"),
+                            Id = new Guid("11f7292d-a432-438a-8166-2a362e152342"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -192,7 +192,7 @@ namespace Replica.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("59b25bcc-6cec-412f-9c0b-7777ebfc20a0"),
+                            Id = new Guid("bebdf36c-e319-4742-bf02-3abaaccf9dfa"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -202,7 +202,7 @@ namespace Replica.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("43b2d07b-e03e-4cb6-a2fc-3f5daca72426"),
+                            Id = new Guid("b9c9ce8b-cab3-44a4-a27f-fb9e7d9cc220"),
                             Available = 1,
                             Description = "",
                             ImageUrl = "*/Image/User/default-place-image.jpg",
@@ -281,7 +281,7 @@ namespace Replica.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("73563853-5aee-4094-8472-a1f70f112de8"),
+                            Id = new Guid("b1b9528c-1728-49b7-81d2-fda2d2dbf2e7"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -292,7 +292,7 @@ namespace Replica.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("78a2aa3e-73a5-433c-b116-59b51a3baa5d"),
+                            Id = new Guid("16fd8cc5-580d-41e4-b75b-52e9d4e8fba2"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -303,7 +303,7 @@ namespace Replica.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8fb0b1f1-d530-4c73-bf87-a89d01609eea"),
+                            Id = new Guid("219943ad-7f4a-4635-97cb-e14bfda6ced5"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -314,7 +314,7 @@ namespace Replica.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6ef8c849-ee30-4658-a375-d3386638326a"),
+                            Id = new Guid("dff69eb0-df62-49cc-a828-993dca89305b"),
                             Description = "",
                             ImageUrl = "*/Image/User/default-product-image.jpg",
                             MeasurementUnits = 3,
@@ -824,9 +824,7 @@ namespace Replica.Infrastructure.Migrations
                 {
                     b.HasOne("Replica.Domain.Entities.Reservation", "Reservation")
                         .WithMany()
-                        .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReservationId");
 
                     b.HasOne("Replica.Domain.Entities.User", "User")
                         .WithMany("Orders")

@@ -167,7 +167,7 @@ namespace Replica.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalCost = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     PaymentStatus = table.Column<int>(type: "int", nullable: false),
@@ -181,8 +181,7 @@ namespace Replica.Infrastructure.Migrations
                         name: "FK_Orders_Reservations_ReservationId",
                         column: x => x.ReservationId,
                         principalTable: "Reservations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserID",
                         column: x => x.UserID,
@@ -259,22 +258,27 @@ namespace Replica.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Places",
+                columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "RentPrice", "SeatingCapacity" },
+                values: new object[] { new Guid("11f7292d-a432-438a-8166-2a362e152342"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з XBox", 300m, 4 });
+
+            migrationBuilder.InsertData(
+                table: "Places",
                 columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "SeatingCapacity" },
                 values: new object[,]
                 {
-                    { new Guid("18d830e9-e5c8-48d3-ba7f-591f16ef6552"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 1", 2 },
-                    { new Guid("43b2d07b-e03e-4cb6-a2fc-3f5daca72426"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 3", 4 },
-                    { new Guid("59b25bcc-6cec-412f-9c0b-7777ebfc20a0"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 2", 4 }
+                    { new Guid("b9c9ce8b-cab3-44a4-a27f-fb9e7d9cc220"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 3", 4 },
+                    { new Guid("bebdf36c-e319-4742-bf02-3abaaccf9dfa"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 2", 4 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Places",
                 columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "RentPrice", "SeatingCapacity" },
-                values: new object[,]
-                {
-                    { new Guid("94fab537-4a8e-4e8b-9a52-852408434f55"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з PS5", 400m, 6 },
-                    { new Guid("f5c1cd5f-9fa6-4541-be84-4cc2c515a97f"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з XBox", 300m, 4 }
-                });
+                values: new object[] { new Guid("becb0025-890c-4bfd-a384-66525bb8c1e2"), 1, "", "*/Image/User/default-place-image.jpg", "Ігрова зона з PS5", 400m, 6 });
+
+            migrationBuilder.InsertData(
+                table: "Places",
+                columns: new[] { "Id", "Available", "Description", "ImageUrl", "Name", "SeatingCapacity" },
+                values: new object[] { new Guid("f9c16520-2579-4234-a579-4d68a7fbec23"), 1, "", "*/Image/User/default-place-image.jpg", "Стіл 1", 2 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
@@ -351,10 +355,10 @@ namespace Replica.Infrastructure.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "MeasurementUnits", "Name", "OrderId", "Price", "Size", "SubcategoryId" },
                 values: new object[,]
                 {
-                    { new Guid("6ef8c849-ee30-4658-a375-d3386638326a"), "", "*/Image/User/default-product-image.jpg", 3, "Кабачкові рулети з вершковим сиром", null, 83m, 180.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") },
-                    { new Guid("73563853-5aee-4094-8472-a1f70f112de8"), "", "*/Image/User/default-product-image.jpg", 3, "Сирний крем-суп", null, 75m, 300.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") },
-                    { new Guid("78a2aa3e-73a5-433c-b116-59b51a3baa5d"), "", "*/Image/User/default-product-image.jpg", 3, "Борщ з телятиною", null, 87m, 350.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") },
-                    { new Guid("8fb0b1f1-d530-4c73-bf87-a89d01609eea"), "", "*/Image/User/default-product-image.jpg", 3, "Пельмені домашні", null, 75m, 220.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") }
+                    { new Guid("16fd8cc5-580d-41e4-b75b-52e9d4e8fba2"), "", "*/Image/User/default-product-image.jpg", 3, "Борщ з телятиною", null, 87m, 350.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") },
+                    { new Guid("219943ad-7f4a-4635-97cb-e14bfda6ced5"), "", "*/Image/User/default-product-image.jpg", 3, "Пельмені домашні", null, 75m, 220.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") },
+                    { new Guid("b1b9528c-1728-49b7-81d2-fda2d2dbf2e7"), "", "*/Image/User/default-product-image.jpg", 3, "Сирний крем-суп", null, 75m, 300.0, new Guid("1ba18109-3b28-4183-894b-6f7741a4074b") },
+                    { new Guid("dff69eb0-df62-49cc-a828-993dca89305b"), "", "*/Image/User/default-product-image.jpg", 3, "Кабачкові рулети з вершковим сиром", null, 83m, 180.0, new Guid("afa905f9-8739-47db-8916-d728d47f8ea2") }
                 });
 
             migrationBuilder.CreateIndex(

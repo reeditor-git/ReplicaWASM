@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Replica.Application.Common.Interfaces.Repositories;
+using Replica.Application.Common.Interfaces.Services;
 using Replica.Infrastructure.Repositories;
-using System.Reflection;
+using Replica.Infrastructure.Services;
 
 namespace Replica.Infrastructure
 {
@@ -10,6 +11,11 @@ namespace Replica.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            
+            services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IJwtParserService, JwtParserService>();
+
             return services;
         }
     }

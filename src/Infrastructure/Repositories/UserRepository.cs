@@ -56,7 +56,8 @@ namespace Replica.Infrastructure.Repositories
         /// Returns a user object by username, if such a user exists in the system.
         /// </returns>
         public async Task<User> GetUserByUsernameAsync(string username) =>
-            await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            await _context.Users.Include(role => role.Role)
+            .FirstOrDefaultAsync(x => x.Username == username);
 
         /// <summary>
         /// Method for changing the user role by the passed identifier.

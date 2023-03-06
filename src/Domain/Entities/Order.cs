@@ -6,7 +6,7 @@ namespace Replica.Domain.Entities
     public class Order : BaseEntity
     {
         public ICollection<Product>? Products { get; set; }
-        public Guid ReservationId { get; set; }
+        public Guid? ReservationId { get; set; }
         public Reservation? Reservation { get; set; }
 
         public string? Comment { get; set; }

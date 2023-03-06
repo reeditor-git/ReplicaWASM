@@ -1,15 +1,22 @@
 ﻿using MediatR;
 using Replica.Application.Common.Interfaces.Repositories;
+using Replica.Application.Common.Interfaces.Services;
 using Replica.Domain.Entities;
 
 namespace Replica.Application.Authentication.Command.Registration
 {
     public sealed class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, RegistrationViewModel>
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPasswordService _passwordService;
+        private readonly IJwtTokenService _jwtTokenService;
 
-        public RegistrationCommandHandler(IUserRepository repository) =>
-            _repository = repository;
+        public RegistrationCommandHandler(
+            IUserRepository userRepository, 
+            IPasswordService passwordService,
+            IJwtTokenService jwtTokenService) =>
+            (_userRepository, _passwordService, _jwtTokenService) = 
+            (userRepository, passwordService, jwtTokenService);
 
         public async Task<RegistrationViewModel> Handle(RegistrationCommand request, CancellationToken cancellationToken)
         {
@@ -17,7 +24,7 @@ namespace Replica.Application.Authentication.Command.Registration
 
             if (request.Username is not null)
             {
-                user = await _repository.GetUserByUsernameAsync(request.Username);
+                user = await _userRepository.GetUserByUsernameAsync(request.Username);
             }
 
             if (user is not null)
@@ -37,16 +44,16 @@ namespace Replica.Application.Authentication.Command.Registration
 
             if(request.Password is not null)
             {
-                user.Password = new PasswordService(request.Password).Hash;
+                user.Password = _passwordService.HashPassword(request.Password);
             }
 
-            await _repository.AddAsync(user);
+            await _userRepository.AddAsync(user);
 
-            
+            var token = _jwtTokenService.GenerateToken(user, request.ApiKey);
 
             return new RegistrationViewModel 
             {
-                Id = user.Id,
+                JwtSecurityToken = token,
             };
         }
     }

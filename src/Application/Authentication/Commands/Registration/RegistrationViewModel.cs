@@ -2,6 +2,6 @@
 {
     public class RegistrationViewModel
     {
-        public Guid Id { get; set; }
+        public string JwtSecurityToken { get; set; }
     }
 }

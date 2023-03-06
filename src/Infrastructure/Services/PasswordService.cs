@@ -1,14 +1,13 @@
-﻿using System.Security.Cryptography;
+﻿using Replica.Application.Common.Interfaces.Services;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace Replica.Infrastructure.Services.Password
+namespace Replica.Infrastructure.Services
 {
-    public class PasswordService
+    public class PasswordService : IPasswordService
     {
-        public readonly string Hash;
-        public PasswordService(string password)
+        public string HashPassword(string password)
         {
-
             byte[] hashedBytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
 
             StringBuilder builder = new();
@@ -18,7 +17,7 @@ namespace Replica.Infrastructure.Services.Password
                 builder.Append(hashedBytes[i].ToString("x2"));
             }
 
-            Hash = builder.ToString();
+            return builder.ToString();
         }
     }
 }
