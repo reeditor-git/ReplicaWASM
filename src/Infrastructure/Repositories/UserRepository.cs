@@ -22,7 +22,7 @@ namespace Replica.Infrastructure.Repositories
         {
             Role role = await _context.Roles.FirstAsync(role => role.Name == "user");
             user.RoleId = role.Id;
-            var result = await _context.Users.AddAsync(user);
+            await _context.Users.AddAsync(user);
 
             await _context.SaveChangesAsync();
         }

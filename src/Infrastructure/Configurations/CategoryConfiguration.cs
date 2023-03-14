@@ -12,11 +12,6 @@ namespace Replica.Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(32);
 
-            builder.Property(c => c.Font)
-                .IsRequired()
-                .HasMaxLength(32)
-                .HasDefaultValue("Calibri");
-
             builder.Property(c => c.Description)
                 .IsRequired()
                 .HasMaxLength(150);

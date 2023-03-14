@@ -7,8 +7,6 @@ namespace Replica.Domain.Entities
         public string? Name { get; set; }
         public string? Description { get; set; }
 
-        public string? Font { get; set; }
-
         public ICollection<Subcategory>? Subcategorys { get; set; }
     }
 }
