@@ -15,10 +15,9 @@ namespace Replica.Domain.Entities
 
         public string? Password { get; set; }
 
-        public Guid RoleId { get; set; }
-        public Role? Role { get; set; }
+        public virtual Role? Role { get; set; }
 
-        public ICollection<Order>? Orders { get; set; }
+        public virtual ICollection<Order>? Orders { get; set; }
 
         public string? RefreshToken { get; set; }
         public DateTime ExpiryDate { get; set; }

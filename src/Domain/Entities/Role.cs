@@ -8,6 +8,6 @@ namespace Replica.Domain.Entities
 
         public string? Description { get; set; }
 
-        public ICollection<User>? Users { get; set; }
+        public virtual ICollection<User>? Users { get; set; }
     }
 }

@@ -2,10 +2,10 @@
 {
     public class PlaceTag
     {
-        public Guid PlaceId { get; set; }
-        public Place? Place { get; set; }
+        public Guid? PlaceId { get; set; }
+        public virtual Place? Place { get; set; }
 
-        public Guid TagId { get; set; }
-        public Tag? Tag { get; set; }
+        public Guid? TagId { get; set; }
+        public virtual Tag? Tag { get; set; }
     }
 }

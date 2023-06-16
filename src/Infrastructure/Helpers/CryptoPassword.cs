@@ -1,10 +1,10 @@
-﻿using Replica.Application.Common.Interfaces.Services;
+﻿using Replica.Application.Common.Interfaces.Helpers;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Replica.Infrastructure.Services
+namespace Replica.Infrastructure.Helpers
 {
-    public class PasswordService : IPasswordService
+    public class CryptoPassword : ICryptoPassword
     {
         public string HashPassword(string password)
         {

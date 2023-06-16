@@ -8,15 +8,13 @@ namespace Replica.Server.Controllers
 {
     public class AuthenticationController : ApiController
     {
-        private readonly string? _apiKey;
-
         public AuthenticationController(IMediator mediator, IConfiguration config)
-            : base(mediator) => _apiKey = config.GetValue<string>("JWT:ApiKey");
+            : base(mediator) { }
 
         /// <summary>       
         /// Login
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="query"></param>
         /// <response code="200">Returns user token</response>
         /// <response code="401">Invalid username or password</response>
         /// <returns></returns>
@@ -24,12 +22,11 @@ namespace Replica.Server.Controllers
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
         [HttpPost("/login")]
-        public async Task<ActionResult> Login([FromBody] LoginQuery command)
+        public async Task<ActionResult> Login([FromBody] LoginQuery query)
         {
             try
             {
-                command.ApiKey = _apiKey ?? throw new ArgumentNullException(nameof(String));
-                var response = await _mediator.Send(command);
+                var response = await _mediator.Send(query);
                 return Ok(response);
             }
             catch (ValidationException e)
@@ -53,7 +50,6 @@ namespace Replica.Server.Controllers
         {
             try
             {
-                command.ApiKey = _apiKey ?? throw new ArgumentNullException(nameof(String));
                 var response = await _mediator.Send(command);
                 return Ok(response);
             }

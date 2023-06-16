@@ -5,121 +5,45 @@ using Replica.Infrastructure.Context;
 
 namespace Replica.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
-        private readonly ReplicaDbContext _context;
+        public UserRepository(ReplicaDbContext ctx)
+            : base(ctx) { }
 
-        public UserRepository(ReplicaDbContext context) =>
-            _context = context;
-
-        /// <summary>
-        /// Method for adding a new user.
-        /// </summary>
-        /// <param name="user">
-        /// User object to be added.
-        /// </param>
-        public async Task AddAsync(User user)
+        public async Task<Guid> CreateAsync(User user)
         {
-            Role role = await _context.Roles.FirstAsync(role => role.Name == "user");
-            user.RoleId = role.Id;
-            await _context.Users.AddAsync(user);
+            user.Role = await _ctx.Roles.FirstOrDefaultAsync(x => x.Name == "user");
+            var newUser = await _ctx.Users.AddAsync(user);
+            await _ctx.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
+            return newUser.Entity.Id;
         }
 
-        /// <summary>
-        /// Method for searching for a user by ID.
-        /// </summary>
-        /// <param name="id">
-        /// ID to search for.
-        /// </param>
-        /// <returns>
-        /// The user object, if it was found.
-        /// </returns>
-        public async Task<User> GetUserAsync(Guid id) =>
-            await _context.Users.FindAsync(id);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IEnumerable<User>> GetUsersAsync() =>
-            await _context.Users.ToListAsync();
-
-        /// <summary>
-        /// Method to search for a user by username.
-        /// </summary>
-        /// <param name="username">
-        /// Username to search by.
-        /// </param>
-        /// <returns>
-        /// Returns a user object by username, if such a user exists in the system.
-        /// </returns>
-        public async Task<User> GetUserByUsernameAsync(string username) =>
-            await _context.Users.Include(role => role.Role)
-            .FirstOrDefaultAsync(x => x.Username == username);
-
-        /// <summary>
-        /// Method for changing the user role by the passed identifier.
-        /// </summary>
-        /// <param name="userId">
-        /// User ID for which you want to replace the role.
-        /// </param>
-        /// <param name="roleId">
-        /// Role ID with which the current user role will be replaced.
-        /// </param>
-        public async Task ChangeUserRoleAsync(Guid userId, Guid roleId)
+        public async Task DeleteAsync(Guid id)
         {
-            User user = await _context.Users.FindAsync(userId);
+            var user = await _ctx.Users.FindAsync(id);
 
-            user.Role = await _context.Roles.FindAsync(roleId);
+            _ctx.Users.Remove(user);
 
-            await _context.SaveChangesAsync();
+            await _ctx.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="reason"></param>
-        /// <returns></returns>
-        public async Task BlockUserAsync(Guid id, string reason)
+        public async Task<User> GetAsync(Guid id) =>
+            await _ctx.Users.FindAsync(id);
+
+        public async Task<User> GetByEmailAsync(string email) =>
+            await _ctx.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+        public async Task<IEnumerable<User>> GetAllAsync() =>
+            await _ctx.Users.ToListAsync();
+
+        public async Task UpdateAsync(User user)
         {
-            User user = await _context.Users.FindAsync(id);
+            var updateUser = await _ctx.Users.FindAsync(user.Id);
 
-            user.Blocked = true;
-            user.BlockingReason = reason;
+            updateUser = user;
 
-            await _context.SaveChangesAsync();
+            await _ctx.SaveChangesAsync();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="reason"></param>
-        /// <returns></returns>
-        public async Task UnblockUserAsync(Guid id)
-        {
-            User user = await _context.Users.FindAsync(id);
-
-            user.Blocked = false;
-            user.BlockingReason = String.Empty;
-
-            await _context.SaveChangesAsync();
-        }
-
-        //public async Task UpdateUserAsync(User user)
-        //{
-        //    User oldUser = await _context.Users.FindAsync(user.Id)
-        //        ?? throw new Exception($"User with ID '{user.Id}' does not exist");
-
-        //    oldUser.Username = user.Username;
-        //    oldUser.FirstName = user.FirstName;
-        //    oldUser.LastName = user.LastName;
-        //    oldUser.Phone = user.Phone;
-        //    oldUser.Email = user.Email;
-
-        //}
     }
 }

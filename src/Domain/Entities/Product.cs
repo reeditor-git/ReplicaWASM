@@ -14,9 +14,8 @@ namespace Replica.Domain.Entities
 
         public decimal Price { get; set; }
 
-        public Guid SubcategoryId { get; set; }
-        public Subcategory? Subcategory { get; set; }
+        public virtual Subcategory? Subcategory { get; set; }
 
-        public ICollection<ProductTag>? ProductTags { get; set; }
+        public virtual ICollection<ProductTag>? ProductTags { get; set; }
     }
 }

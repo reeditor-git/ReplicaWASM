@@ -1,10 +1,10 @@
-﻿using Replica.Application.Common.Interfaces.Services;
+﻿using Replica.Application.Common.Interfaces.Helpers;
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace Replica.Infrastructure.Services
+namespace Replica.Infrastructure.Helpers
 {
-    public class JwtParserService : IJwtParserService
+    public class JwtParser : IJwtParser
     {
         public IEnumerable<Claim> JwtParseClaim(string jwt)
         {

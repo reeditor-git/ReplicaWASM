@@ -14,6 +14,6 @@ namespace Replica.Domain.Entities
 
         public PlaceAvailable Available { get; set; }
 
-        public ICollection<PlaceTag>? PlaceTags { get; set; }
+        public virtual ICollection<PlaceTag>? PlaceTags { get; set; }
     }
 }

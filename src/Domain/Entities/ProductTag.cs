@@ -2,10 +2,10 @@
 {
     public class ProductTag
     {
-        public Guid ProductId { get; set; }
-        public Product? Product { get; set; }
+        public Guid? ProductId { get; set; }
+        public virtual Product? Product { get; set; }
 
-        public Guid TagId { get; set; }
-        public Tag? Tag { get; set; }
+        public Guid? TagId { get; set; }
+        public virtual Tag? Tag { get; set; }
     }
 }
