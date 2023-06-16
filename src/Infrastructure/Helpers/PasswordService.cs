@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Replica.Infrastructure.Helpers
 {
-    public class CryptoPassword : ICryptoPassword
+    public class PasswordService : IPasswordService
     {
         public string HashPassword(string password)
         {

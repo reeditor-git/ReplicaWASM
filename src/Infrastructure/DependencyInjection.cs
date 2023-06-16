@@ -51,8 +51,9 @@ namespace Replica.Infrastructure
                     ClockSkew = TimeSpan.Zero
                 });
 
+            services.AddScoped<ICryptoService, CryptoService>();
             services.AddScoped<IJwtParser, JwtParser>();
-            services.AddScoped<ICryptoPassword, CryptoPassword>();
+            services.AddScoped<IPasswordService, PasswordService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 

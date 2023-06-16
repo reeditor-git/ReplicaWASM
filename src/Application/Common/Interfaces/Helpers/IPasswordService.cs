@@ -1,6 +1,6 @@
 ﻿namespace Replica.Application.Common.Interfaces.Helpers
 {
-    public interface ICryptoPassword
+    public interface IPasswordService
     {
         string HashPassword(string password);
     }

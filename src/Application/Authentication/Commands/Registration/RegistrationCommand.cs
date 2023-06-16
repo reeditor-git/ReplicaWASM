@@ -1,9 +1,9 @@
-﻿using MediatR;
-using System.Text.Json.Serialization;
+﻿using ErrorOr;
+using MediatR;
 
 namespace Replica.Application.Authentication.Command.Registration
 {
-    public sealed class RegistrationCommand : IRequest<RegistrationViewModel>
+    public sealed class RegistrationCommand : IRequest<ErrorOr<string>>
     {
         public string? FirstName { get; set; }
 

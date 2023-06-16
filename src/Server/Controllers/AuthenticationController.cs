@@ -1,62 +1,55 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Replica.Application.Authentication.Command.Registration;
+using Replica.Application.Authentication.Commands.RefreshToken;
 using Replica.Application.Authentication.Queries.Login;
 using System.ComponentModel.DataAnnotations;
 
 namespace Replica.Server.Controllers
 {
+    [Route("api/[controller]")]
     public class AuthenticationController : ApiController
     {
         public AuthenticationController(IMediator mediator, IConfiguration config)
             : base(mediator) { }
 
-        /// <summary>       
-        /// Login
-        /// </summary>
-        /// <param name="query"></param>
-        /// <response code="200">Returns user token</response>
-        /// <response code="401">Invalid username or password</response>
-        /// <returns></returns>
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        [HttpPost("/login")]
-        public async Task<ActionResult> Login([FromBody] LoginQuery query)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginQuery query)
         {
-            try
-            {
-                var response = await _mediator.Send(query);
-                return Ok(response);
-            }
-            catch (ValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
+            var response = await _mediator.Send(query);
+
+            return response.Match(
+                response => Ok(response),
+                errors => Problem(errors));
         }
 
-        /// <summary>       
-        /// Registration
-        /// </summary>
-        /// <param name="command"></param>
-        /// <response code="200">Returns user token</response>
-        /// <response code="401">Invalid user data</response>
-        /// <returns></returns>
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        [HttpPost("/registration")]
-        public async Task<ActionResult> Registration([FromBody] RegistrationCommand command)
+        [HttpPost("register")]
+        public async Task<IActionResult> Registration([FromBody] RegistrationCommand command)
         {
-            try
-            {
-                var response = await _mediator.Send(command);
-                return Ok(response);
-            }
-            catch (ValidationException e)
-            {
-                return BadRequest(e.Message);
-            }
+            var response = await _mediator.Send(command);
+
+            return response.Match(
+                response => Ok(response),
+                errors => Problem(errors));
+        }
+
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(500)]
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
+        {
+            var response = await _mediator.Send(command);
+
+            return response.Match(
+                response => Ok(response),
+                errors => Problem(errors));
         }
     }
 }
