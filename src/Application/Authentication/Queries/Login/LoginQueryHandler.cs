@@ -3,6 +3,7 @@ using MediatR;
 using Replica.Application.Common.Interfaces.Authentication;
 using Replica.Application.Common.Interfaces.Helpers;
 using Replica.Application.Common.Interfaces.Repositories;
+using Replica.Domain.AppError;
 using Replica.Domain.Entities;
 
 namespace Replica.Application.Authentication.Queries.Login
@@ -24,10 +25,11 @@ namespace Replica.Application.Authentication.Queries.Login
         {
             User user = await _userRepository.GetByEmailAsync(request.Email);
 
-            if (_cryptoService.HashPassword(request.Password) != user.Password)
-            {
-                throw new Exception("Invalid password.");
-            }
+            if (user.Blocked is true)
+                return Errors.User.Blocked;
+
+            if(_cryptoService.HashPassword(request.Password) != user.Password)
+                return Errors.User.WrongPassword;
 
             var token = _jwtTokenService.GenerateToken(user);
 

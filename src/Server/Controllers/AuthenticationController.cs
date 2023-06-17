@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Replica.Application.Authentication.Command.Registration;
 using Replica.Application.Authentication.Commands.RefreshToken;
@@ -9,12 +10,9 @@ namespace Replica.Server.Controllers
     [Route("api/[controller]")]
     public class AuthenticationController : ApiController
     {
-        public AuthenticationController(IMediator mediator, IConfiguration config)
+        public AuthenticationController(IMediator mediator)
             : base(mediator) { }
 
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginQuery query)
         {
@@ -25,9 +23,6 @@ namespace Replica.Server.Controllers
                 errors => Problem(errors));
         }
 
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
         [HttpPost("register")]
         public async Task<IActionResult> Registration([FromBody] RegistrationCommand command)
         {
@@ -38,10 +33,8 @@ namespace Replica.Server.Controllers
                 errors => Problem(errors));
         }
 
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
         [HttpPost("refresh-token")]
+        [AllowAnonymous]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
         {
             var response = await _mediator.Send(command);

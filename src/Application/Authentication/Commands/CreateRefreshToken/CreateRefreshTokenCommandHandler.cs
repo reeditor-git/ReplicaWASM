@@ -21,10 +21,10 @@ namespace Replica.Application.Authentication.Commands.CreateRefreshToken
             (_cryptoService, _userRepository, _jwtTokenService) = 
             (cryptoService, userRepository, jwtTokenService);
 
-        public async Task<ErrorOr<CreateRefreshTokenResult>> Handle(CreateRefreshTokenCommand command, 
+        public async Task<ErrorOr<CreateRefreshTokenResult>> Handle(CreateRefreshTokenCommand request, 
             CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByEmailAsync(command.Email);
+            var user = await _userRepository.GetByEmailAsync(request.Email);
 
             if (user is null)
                 return Errors.User.NotFound;

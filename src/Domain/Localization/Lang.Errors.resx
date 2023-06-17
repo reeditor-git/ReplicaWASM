@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Authentication.DuplicateEmail" xml:space="preserve">
+    <value>Користувач з такою email адресою вже існує</value>
+  </data>
   <data name="Authentication.InvalidToken" xml:space="preserve">
     <value>Маркер доступу пошкоджено, або згенеровано стороннім сервісом</value>
   </data>
   <data name="Authentication.RefreshTokenExpired" xml:space="preserve">
     <value>Термін дії маркера оновлення минув</value>
   </data>
+  <data name="Role.NotFound" xml:space="preserve">
+    <value>Роль з таким ідентефікатором відсутня</value>
+  </data>
+  <data name="User.Blocked" xml:space="preserve">
+    <value>Даний користувач заблокований</value>
+  </data>
   <data name="User.NotFound" xml:space="preserve">
     <value>Користувач з таким ідентифікатором відсутній</value>
+  </data>
+  <data name="User.WrongPassword" xml:space="preserve">
+    <value>Невірний пароль користувача</value>
   </data>
 </root>

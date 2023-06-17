@@ -14,6 +14,10 @@ namespace Replica.Domain.AppError
             public static Error RefreshTokenExpired =
                 Error.Conflict("Authentication.RefreshTokenExpired",
                     description: Lang_Errors.Authentication_RefreshTokenExpired);
+
+            public static Error DuplicateEmail =
+                Error.Conflict("Authentication.DuplicateEmail",
+                    description: Lang_Errors.Authentication_DuplicateEmail);
         }
     }
 }

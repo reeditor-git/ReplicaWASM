@@ -24,10 +24,10 @@ namespace Replica.Application.Authentication.Commands.RefreshToken
             (_cryptoService, _userRepository, _jwtTokenService, _jwtParser) = 
             (cryptoService, userRepository, jwtTokenService, jwtParser);
 
-        public async Task<ErrorOr<string>> Handle(RefreshTokenCommand command, 
+        public async Task<ErrorOr<string>> Handle(RefreshTokenCommand request, 
             CancellationToken cancellationToken)
         {
-            var claims = _jwtParser.JwtParseClaim(command.AccessToken);
+            var claims = _jwtParser.JwtParseClaim(request.AccessToken);
 
             if (!claims.Any(x => x.Type == JwtClaimTypes.Id))
                 return Errors.Authentication.InvalidAccessToken;
@@ -38,7 +38,7 @@ namespace Replica.Application.Authentication.Commands.RefreshToken
             if(user is null)
                 return Errors.User.NotFound;
 
-            var tokenPlain = _cryptoService.Decrypt(command.RefreshToken, userId.ToString());
+            var tokenPlain = _cryptoService.Decrypt(request.RefreshToken, userId.ToString());
 
             if(user.ExpiryDate > DateTime.UtcNow || user.RefreshToken == tokenPlain)
                 return Errors.Authentication.RefreshTokenExpired;

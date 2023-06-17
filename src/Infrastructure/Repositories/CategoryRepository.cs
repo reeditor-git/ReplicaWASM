@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Replica.Application.Common.Interfaces.Repositories;
 using Replica.Domain.Entities;
 using Replica.Infrastructure.Context;
 
 namespace Replica.Infrastructure.Repositories
 {
-    public class CategoryRepository : BaseRepository
+    public class CategoryRepository : BaseRepository, ICategoryRepository
     {
         public CategoryRepository(ReplicaDbContext ctx) 
             : base(ctx) { }

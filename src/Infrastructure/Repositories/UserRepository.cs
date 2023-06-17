@@ -12,7 +12,6 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task<Guid> CreateAsync(User user)
         {
-            user.Role = await _ctx.Roles.FirstOrDefaultAsync(x => x.Name == "user");
             var newUser = await _ctx.Users.AddAsync(user);
             await _ctx.SaveChangesAsync();
 
@@ -37,13 +36,15 @@ namespace Replica.Infrastructure.Repositories
         public async Task<IEnumerable<User>> GetAllAsync() =>
             await _ctx.Users.ToListAsync();
 
-        public async Task UpdateAsync(User user)
+        public async Task<bool> UpdateAsync(User user)
         {
             var updateUser = await _ctx.Users.FindAsync(user.Id);
 
             updateUser = user;
 
             await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(true);
         }
     }
 }

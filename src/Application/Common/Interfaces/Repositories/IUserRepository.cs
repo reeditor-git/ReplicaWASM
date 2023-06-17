@@ -9,6 +9,6 @@ namespace Replica.Application.Common.Interfaces.Repositories
         Task<User> GetAsync(Guid id);
         Task<User> GetByEmailAsync(string email);
         Task<IEnumerable<User>> GetAllAsync();
-        Task UpdateAsync(User user);
+        Task<bool> UpdateAsync(User user);
     }
 }

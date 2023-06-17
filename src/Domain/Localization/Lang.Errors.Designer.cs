@@ -61,6 +61,15 @@ namespace Replica.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Користувач з такою email адресою вже існує.
+        /// </summary>
+        internal static string Authentication_DuplicateEmail {
+            get {
+                return ResourceManager.GetString("Authentication.DuplicateEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Маркер доступу пошкоджено, або згенеровано стороннім сервісом.
         /// </summary>
         internal static string Authentication_InvalidToken {
@@ -79,11 +88,38 @@ namespace Replica.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Роль з таким ідентефікатором відсутня.
+        /// </summary>
+        internal static string Role_NotFound {
+            get {
+                return ResourceManager.GetString("Role.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Даний користувач заблокований.
+        /// </summary>
+        internal static string User_Blocked {
+            get {
+                return ResourceManager.GetString("User.Blocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Користувач з таким ідентифікатором відсутній.
         /// </summary>
         internal static string User_NotFound {
             get {
                 return ResourceManager.GetString("User.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невірний пароль користувача.
+        /// </summary>
+        internal static string User_WrongPassword {
+            get {
+                return ResourceManager.GetString("User.WrongPassword", resourceCulture);
             }
         }
     }
