@@ -16,7 +16,7 @@ namespace Replica.Server.Controllers
             : base(mediator) { }
 
         [HttpPatch("block")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Block([FromBody] BlockUserCommand command)
         {
             var response = await _mediator.Send(command);
@@ -60,7 +60,7 @@ namespace Replica.Server.Controllers
         }
 
         [HttpGet("get_all")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> GetAllUser([FromBody] GetAllUsersQuery query)
         {
             var response = await _mediator.Send(query);

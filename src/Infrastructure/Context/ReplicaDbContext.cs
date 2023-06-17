@@ -72,13 +72,19 @@ namespace Replica.Infrastructure.Context
                 {
                     Id = Guid.Parse("6fa17fba-626d-481c-81cd-bbda29109fab"),
                     Name = "admin",
-                    Description = "Основний користувач системи, з усіма правами доступу."
+                    Description = "Головний привілейований користувач системи, з усіма рівнями доступу."
                 },
                 new Role
                 {
                     Id = Guid.Parse("2bb5984d-3ff9-49c3-9e54-5dcff385fb98"),
                     Name = "manager",
-                    Description = "персонал лаунж-бару."
+                    Description = "Керуючий персонал закладу."
+                },
+                new Role
+                {
+                    Id = Guid.Parse("8d0bfe93-bd12-44d8-b64c-b18867b4dff2"),
+                    Name = "staff",
+                    Description = "Персонал лаунж-бару."
                 },
                 new Role
                 {

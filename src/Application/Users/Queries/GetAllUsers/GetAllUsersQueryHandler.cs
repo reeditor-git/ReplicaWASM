@@ -13,9 +13,7 @@ namespace Replica.Application.Users.Queries.GetAllUsers
             _userRepository = userRepository;
 
         public async Task<IEnumerable<User>> Handle(GetAllUsersQuery request,
-            CancellationToken cancellationToken)
-        {
-            return await _userRepository.GetAllAsync();
-        }
+            CancellationToken cancellationToken) =>
+            await _userRepository.GetAllAsync();
     }
 }

@@ -129,6 +129,12 @@
   <data name="Role.NotFound" xml:space="preserve">
     <value>Роль з таким ідентефікатором відсутня</value>
   </data>
+  <data name="Tag.AlreadyExists" xml:space="preserve">
+    <value>Такий тег вже існує</value>
+  </data>
+  <data name="Tag.NotFound" xml:space="preserve">
+    <value>Тег з таким ідентифікатором відсутній</value>
+  </data>
   <data name="User.Blocked" xml:space="preserve">
     <value>Даний користувач заблокований</value>
   </data>

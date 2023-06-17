@@ -97,6 +97,24 @@ namespace Replica.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Такий тег вже існує.
+        /// </summary>
+        internal static string Tag_AlreadyExists {
+            get {
+                return ResourceManager.GetString("Tag.AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Тег з таким ідентифікатором відсутній.
+        /// </summary>
+        internal static string Tag_NotFound {
+            get {
+                return ResourceManager.GetString("Tag.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Даний користувач заблокований.
         /// </summary>
         internal static string User_Blocked {
