@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Replica.Application.Authentication.Command.Registration;
 using Replica.Application.Authentication.Commands.RefreshToken;
 using Replica.Application.Authentication.Queries.Login;
-using System.ComponentModel.DataAnnotations;
 
 namespace Replica.Server.Controllers
 {
