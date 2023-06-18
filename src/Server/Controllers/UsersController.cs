@@ -5,7 +5,6 @@ using Replica.Application.Users.Commands.Block;
 using Replica.Application.Users.Commands.UpdateUser;
 using Replica.Application.Users.Queries.GetAllUsers;
 using Replica.Application.Users.Queries.GetUser;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Replica.Server.Controllers
 {
@@ -26,7 +25,7 @@ namespace Replica.Server.Controllers
                 errors => Problem(errors));
         }
 
-        [HttpPatch("update_role")]
+        [HttpPatch("change-role")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateUserCommand command)
         {
@@ -37,7 +36,7 @@ namespace Replica.Server.Controllers
                 errors => Problem(errors));
         }
 
-        [HttpPatch("update")]
+        [HttpPatch]
         [Authorize]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
         {
@@ -48,18 +47,21 @@ namespace Replica.Server.Controllers
                 errors => Problem(errors));
         }
 
-        [HttpGet("get")]
+        [HttpGet("{id}")]
         [Authorize]
-        public async Task<IActionResult> GetUser([FromBody] GetUserQuery query)
+        public async Task<IActionResult> GetUser(Guid id)
         {
-            var response = await _mediator.Send(query);
+            var response = await _mediator.Send(new GetUserQuery
+            {
+                Id = id
+            });
 
             return response.Match(
                 response => Ok(response),
                 errors => Problem(errors));
         }
 
-        [HttpGet("get_all")]
+        [HttpGet]
         [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> GetAllUser([FromBody] GetAllUsersQuery query)
         {

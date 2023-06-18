@@ -14,7 +14,7 @@ namespace Replica.Server.Controllers
         public TagsController(IMediator mediator) 
             : base(mediator) { }
 
-        [HttpPost("create")]
+        [HttpPost]
         [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Create([FromBody] CreateTagCommand command)
         {
@@ -25,7 +25,7 @@ namespace Replica.Server.Controllers
                 errors => Problem(errors));
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete]
         [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Delete([FromBody] DeleteTagCommand command)
         {
@@ -36,7 +36,7 @@ namespace Replica.Server.Controllers
                 errors => Problem(errors));
         }
 
-        [HttpGet("get_all")]
+        [HttpGet]
         [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> GetAll([FromBody] GetAllTagsQuery query)
         {
@@ -45,7 +45,7 @@ namespace Replica.Server.Controllers
             return Ok(response);
         }
 
-        [HttpPatch("update")]
+        [HttpPatch]
         [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Update([FromBody] UpdateTagCommand command)
         {
