@@ -19,17 +19,4 @@
     <ProjectReference Include="..\Domain\Replica.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Orders\Commands\" />
-    <Folder Include="Orders\Queries\" />
-    <Folder Include="Products\Commands\CreateProduct\" />
-    <Folder Include="Products\Commands\DeleteProduct\" />
-    <Folder Include="Products\Commands\UpdateProduct\" />
-    <Folder Include="Products\Queries\GetAllProducts\" />
-    <Folder Include="Products\Queries\GetBySubcategory\" />
-    <Folder Include="Products\Queries\GetProduct\" />
-    <Folder Include="Subcategories\Commands\" />
-    <Folder Include="Subcategories\Queries\" />
-  </ItemGroup>
-
 </Project>
