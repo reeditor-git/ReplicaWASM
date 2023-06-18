@@ -7,6 +7,7 @@ namespace Replica.Application.Common.Interfaces.Repositories
         Task<Guid> CreateAsync(Category category);
         Task DeleteAsync(Guid id);
         Task<Category> GetAsync(Guid id);
+        Task<Category> GetByNameAsync(string name);
         Task<IEnumerable<Category>> GetAllAsync();
         Task UpdateAsync(Category category);
     }

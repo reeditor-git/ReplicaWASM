@@ -31,6 +31,9 @@ namespace Replica.Infrastructure.Repositories
         public async Task<Category> GetAsync(Guid id) =>
             await _ctx.Categories.FindAsync(id);
 
+        public async Task<Category> GetByNameAsync(string name) =>
+            await _ctx.Categories.FirstOrDefaultAsync(x => x.Name == name);
+
         public async Task<IEnumerable<Category>> GetAllAsync() =>
             await _ctx.Categories.ToListAsync();
 
