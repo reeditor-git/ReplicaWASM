@@ -5,14 +5,16 @@ using Replica.Infrastructure.Context;
 
 namespace Replica.Infrastructure.Repositories
 {
-    public class SubcategoryRepository : BaseRepository, ISubcategoryRepository
+    public class SubcategoryRepository 
+        : BaseRepository, ISubcategoryRepository
     {
         public SubcategoryRepository(ReplicaDbContext ctx) 
             : base(ctx) { }
 
         public async Task<Guid> CreateAsync(Subcategory subcategory)
         {
-            var newSubcategory = await _ctx.Subcategories.AddAsync(subcategory);
+            var newSubcategory = await _ctx.Subcategories
+                .AddAsync(subcategory);
 
             await _ctx.SaveChangesAsync();
 
@@ -21,7 +23,8 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var subcategory = await _ctx.Subcategories.FindAsync(id);
+            var subcategory = await _ctx.Subcategories
+                .FindAsync(id);
             _ctx.Subcategories.Remove(subcategory);
 
             await _ctx.SaveChangesAsync();
@@ -38,7 +41,8 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task<bool> UpdateAsync(Subcategory subcategory)
         {
-            var updateSubcategory = await _ctx.Subcategories.FindAsync(subcategory.Id);
+            var updateSubcategory = await _ctx.Subcategories
+                .FindAsync(subcategory.Id);
 
             updateSubcategory = subcategory;
 

@@ -10,9 +10,9 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 namespace Replica.Server.Controllers
 {
     [Route("api/[controller]")]
-    public class UserController : ApiController
+    public class UsersController : ApiController
     {
-        public UserController(IMediator mediator)
+        public UsersController(IMediator mediator)
             : base(mediator) { }
 
         [HttpPatch("block")]

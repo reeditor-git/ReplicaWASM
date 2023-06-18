@@ -5,7 +5,8 @@ using Replica.Infrastructure.Context;
 
 namespace Replica.Infrastructure.Repositories
 {
-    public class RoleRepository : BaseRepository, IRoleRepository
+    public class RoleRepository 
+        : BaseRepository, IRoleRepository
     {
         public RoleRepository(ReplicaDbContext ctx) 
             : base(ctx) { }

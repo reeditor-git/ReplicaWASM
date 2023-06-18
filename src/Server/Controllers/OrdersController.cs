@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Replica.Server.Controllers
 {
     [Route("api/[controller]")]
-    public class SubcategoryController : ApiController
+    public class OrdersController : ApiController
     {
-        public SubcategoryController(IMediator mediator)
+        public OrdersController(IMediator mediator) 
             : base(mediator) { }
     }
 }

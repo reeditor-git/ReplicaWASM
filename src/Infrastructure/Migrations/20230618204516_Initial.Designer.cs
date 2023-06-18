@@ -12,7 +12,7 @@ using Replica.Infrastructure.Context;
 namespace Replica.Infrastructure.Migrations
 {
     [DbContext(typeof(ReplicaDbContext))]
-    [Migration("20230618163923_Initial")]
+    [Migration("20230618204516_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -45,6 +45,64 @@ namespace Replica.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Replica.Domain.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CommentText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.ConfirmationStatus", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConfirmationStatuses");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.MeasurementUnit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MeasurementUnits");
+                });
+
             modelBuilder.Entity("Replica.Domain.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
@@ -54,14 +112,14 @@ namespace Replica.Infrastructure.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ConfirmationStatus")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ConfirmationStatusId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PaymentStatusId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ReservationId")
                         .HasColumnType("uniqueidentifier");
@@ -74,11 +132,30 @@ namespace Replica.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConfirmationStatusId");
+
+                    b.HasIndex("PaymentStatusId");
+
                     b.HasIndex("ReservationId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.PaymentStatus", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentStatuses");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.Place", b =>
@@ -134,14 +211,11 @@ namespace Replica.Infrastructure.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MeasurementUnits")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MeasurementUnitsId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -154,11 +228,35 @@ namespace Replica.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("MeasurementUnitsId");
 
                     b.HasIndex("SubcategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.ProductCount", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductCounts");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.ProductTag", b =>
@@ -326,8 +424,39 @@ namespace Replica.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Replica.Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("Replica.Domain.Entities.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Replica.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Replica.Domain.Entities.Order", b =>
                 {
+                    b.HasOne("Replica.Domain.Entities.ConfirmationStatus", "ConfirmationStatus")
+                        .WithMany()
+                        .HasForeignKey("ConfirmationStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Replica.Domain.Entities.PaymentStatus", "PaymentStatus")
+                        .WithMany()
+                        .HasForeignKey("PaymentStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Replica.Domain.Entities.Reservation", "Reservation")
                         .WithMany()
                         .HasForeignKey("ReservationId");
@@ -335,6 +464,10 @@ namespace Replica.Infrastructure.Migrations
                     b.HasOne("Replica.Domain.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("ConfirmationStatus");
+
+                    b.Navigation("PaymentStatus");
 
                     b.Navigation("Reservation");
 
@@ -362,15 +495,38 @@ namespace Replica.Infrastructure.Migrations
 
             modelBuilder.Entity("Replica.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("Replica.Domain.Entities.Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
+                    b.HasOne("Replica.Domain.Entities.MeasurementUnit", "MeasurementUnits")
+                        .WithMany()
+                        .HasForeignKey("MeasurementUnitsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Replica.Domain.Entities.Subcategory", "Subcategory")
                         .WithMany("Products")
                         .HasForeignKey("SubcategoryId");
 
+                    b.Navigation("MeasurementUnits");
+
                     b.Navigation("Subcategory");
+                });
+
+            modelBuilder.Entity("Replica.Domain.Entities.ProductCount", b =>
+                {
+                    b.HasOne("Replica.Domain.Entities.Order", "Order")
+                        .WithMany("ProductCounts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Replica.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.ProductTag", b =>
@@ -426,7 +582,7 @@ namespace Replica.Infrastructure.Migrations
 
             modelBuilder.Entity("Replica.Domain.Entities.Order", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductCounts");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.Place", b =>
@@ -436,6 +592,8 @@ namespace Replica.Infrastructure.Migrations
 
             modelBuilder.Entity("Replica.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("ProductTags");
                 });
 

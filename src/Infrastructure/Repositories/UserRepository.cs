@@ -5,14 +5,16 @@ using Replica.Infrastructure.Context;
 
 namespace Replica.Infrastructure.Repositories
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository 
+        : BaseRepository, IUserRepository
     {
         public UserRepository(ReplicaDbContext ctx)
             : base(ctx) { }
 
         public async Task<Guid> CreateAsync(User user)
         {
-            var newUser = await _ctx.Users.AddAsync(user);
+            var newUser = await _ctx.Users
+                .AddAsync(user);
             await _ctx.SaveChangesAsync();
 
             return newUser.Entity.Id;
@@ -20,7 +22,8 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var user = await _ctx.Users.FindAsync(id);
+            var user = await _ctx.Users
+                .FindAsync(id);
 
             _ctx.Users.Remove(user);
 
@@ -38,7 +41,8 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task<bool> UpdateAsync(User user)
         {
-            var updateUser = await _ctx.Users.FindAsync(user.Id);
+            var updateUser = await _ctx.Users
+                .FindAsync(user.Id);
 
             updateUser = user;
 

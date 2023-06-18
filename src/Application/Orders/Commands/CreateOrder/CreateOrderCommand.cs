@@ -1,12 +1,12 @@
 ﻿using ErrorOr;
 using MediatR;
-using Replica.Domain.Enums;
 
 namespace Replica.Application.Orders.Commands.CreateOrder
 {
-    public class CreateOrderCommand : IRequest<ErrorOr<Guid>>
+    public class CreateOrderCommand 
+        : IRequest<ErrorOr<Guid>>
     {
-        public IEnumerable<Guid> ProductIds { get; set; }
+        public IEnumerable<KeyValuePair<Guid, int>> Products { get; set; }
 
         public Guid PlaceId { get; set; }
 
@@ -16,7 +16,7 @@ namespace Replica.Application.Orders.Commands.CreateOrder
 
         public decimal TotalCost { get; set; }
 
-        public PaymentStatus PaymentStatus { get; set; }
+        public Guid PaymentStatusId { get; set; }
 
         public Guid UserId { get; set; }
     }

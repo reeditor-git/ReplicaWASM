@@ -1,5 +1,4 @@
 ﻿using Replica.Domain.Common;
-using Replica.Domain.Enums;
 
 namespace Replica.Domain.Entities
 {

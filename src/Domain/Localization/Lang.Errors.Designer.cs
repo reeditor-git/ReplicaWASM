@@ -106,11 +106,38 @@ namespace Replica.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Статус підтвердження з таким ідентифікатором відсутній.
+        /// </summary>
+        internal static string ConfirmationStatus_NotFound {
+            get {
+                return ResourceManager.GetString("ConfirmationStatus.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Одинииця виміру з таким ідентифікатором відсутня.
+        /// </summary>
+        internal static string MeasurementUnit_NotFound {
+            get {
+                return ResourceManager.GetString("MeasurementUnit.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Замовлення з таким ідентифікатором відсутнє.
         /// </summary>
         internal static string Order_NotFound {
             get {
                 return ResourceManager.GetString("Order.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Статус оплати з таким ідентифікатором відсутній.
+        /// </summary>
+        internal static string PaymentStatus_NotFound {
+            get {
+                return ResourceManager.GetString("PaymentStatus.NotFound", resourceCulture);
             }
         }
         

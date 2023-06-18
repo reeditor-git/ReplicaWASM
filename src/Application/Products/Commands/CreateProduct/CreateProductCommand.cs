@@ -1,10 +1,10 @@
 ﻿using ErrorOr;
 using MediatR;
-using Replica.Domain.Enums;
 
 namespace Replica.Application.Products.Commands.CreateProduct
 {
-    public class CreateProductCommand : IRequest<ErrorOr<Guid>>
+    public class CreateProductCommand 
+        : IRequest<ErrorOr<Guid>>
     {
         public string? Name { get; set; }
 
@@ -14,7 +14,7 @@ namespace Replica.Application.Products.Commands.CreateProduct
 
         public double Size { get; set; }
 
-        public MeasurementUnits MeasurementUnits { get; set; }
+        public Guid MeasurementUnitsId { get; set; }
 
         public decimal Price { get; set; }
 

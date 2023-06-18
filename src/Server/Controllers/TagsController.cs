@@ -9,9 +9,9 @@ using Replica.Application.Tags.Queries.GetAllTags;
 namespace Replica.Server.Controllers
 {
     [Route("api/[controller]")]
-    public class TagController : ApiController
+    public class TagsController : ApiController
     {
-        public TagController(IMediator mediator) 
+        public TagsController(IMediator mediator) 
             : base(mediator) { }
 
         [HttpPost("create")]

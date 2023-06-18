@@ -19,6 +19,11 @@ namespace Replica.Infrastructure.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<ProductCount> ProductCounts { get; set; }
+        public DbSet<PaymentStatus> PaymentStatuses { get; set; }
+        public DbSet<MeasurementUnit> MeasurementUnits { get; set; }
+        public DbSet<ConfirmationStatus> ConfirmationStatuses { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

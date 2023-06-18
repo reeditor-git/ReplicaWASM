@@ -64,6 +64,11 @@ namespace Replica.Infrastructure
             services.AddScoped<ISubcategoryRepository, SubcategoryRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IConfirmationStatusRepository, ConfirmationStatusRepository>();
+            services.AddScoped<IMeasurementUnitRepository, MeasurementUnitRepository>();
+            services.AddScoped<IProductCountRepository, ProductCountRepository>();
+            services.AddScoped<IPaymentStatusRepository, PaymentStatusRepository>();
 
             return services;
         }

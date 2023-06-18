@@ -1,5 +1,4 @@
 ﻿using Replica.Domain.Common;
-using Replica.Domain.Enums;
 
 namespace Replica.Domain.Entities
 {
@@ -10,12 +9,14 @@ namespace Replica.Domain.Entities
         public string? ImageUrl { get; set; }
 
         public double Size { get; set; }
-        public MeasurementUnits MeasurementUnits { get; set; }
+        public virtual MeasurementUnit MeasurementUnits { get; set; }
 
         public decimal Price { get; set; }
 
         public virtual Subcategory? Subcategory { get; set; }
 
         public virtual ICollection<ProductTag>? ProductTags { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

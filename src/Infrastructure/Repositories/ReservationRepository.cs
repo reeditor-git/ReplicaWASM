@@ -5,14 +5,16 @@ using Replica.Infrastructure.Context;
 
 namespace Replica.Infrastructure.Repositories
 {
-    public class ReservationRepository : BaseRepository, IReservationRepository
+    public class ReservationRepository
+        : BaseRepository, IReservationRepository
     {
         public ReservationRepository(ReplicaDbContext ctx) 
             : base(ctx) { }
 
         public async Task<Guid> CreateAsync(Reservation reservation)
         {
-            var newReservation = await _ctx.Reservations.AddAsync(reservation);
+            var newReservation = await _ctx.Reservations
+                .AddAsync(reservation);
 
             await _ctx.SaveChangesAsync();
 
@@ -21,7 +23,8 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var reservation = await _ctx.Reservations.FindAsync(id);
+            var reservation = await _ctx.Reservations
+                .FindAsync(id);
 
             _ctx.Reservations.Remove(reservation);
 
@@ -34,13 +37,16 @@ namespace Replica.Infrastructure.Repositories
         public async Task<IEnumerable<Reservation>> GetAllAsync() =>
             await _ctx.Reservations.ToListAsync();
 
-        public async Task UpdateAsync(Reservation reservation)
+        public async Task<bool> UpdateAsync(Reservation reservation)
         {
-            var updateReservation = await _ctx.Reservations.FindAsync(reservation.Id);
+            var updateReservation = await _ctx.Reservations
+                .FindAsync(reservation.Id);
 
             updateReservation = reservation;
 
             await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(true);
         }
     }
 }

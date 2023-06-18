@@ -5,14 +5,16 @@ using Replica.Infrastructure.Context;
 
 namespace Replica.Infrastructure.Repositories
 {
-    public class ProductRepository : BaseRepository, IProductRepository
+    public class ProductRepository 
+        : BaseRepository, IProductRepository
     {
         public ProductRepository(ReplicaDbContext ctx) 
             : base(ctx) { }
 
         public async Task<Guid> CreateAsync(Product product)
         {
-            var newProduct = await _ctx.Products.AddAsync(product);
+            var newProduct = await _ctx.Products
+                .AddAsync(product);
 
             await _ctx.SaveChangesAsync();
 
@@ -21,7 +23,8 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var product = await _ctx.Products.FindAsync(id);
+            var product = await _ctx.Products
+                .FindAsync(id);
 
             _ctx.Products.Remove(product);
 
@@ -36,7 +39,8 @@ namespace Replica.Infrastructure.Repositories
 
         public async Task<bool> UpdateAsync(Product product)
         {
-            var updateProduct = await _ctx.Products.FindAsync(product.Id);
+            var updateProduct = await _ctx.Products
+                .FindAsync(product.Id);
 
             updateProduct = product;
 

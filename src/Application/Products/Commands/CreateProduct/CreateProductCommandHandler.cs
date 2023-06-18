@@ -12,13 +12,17 @@ namespace Replica.Application.Products.Commands.CreateProduct
         protected readonly IProductRepository _productRepository;
         protected readonly ISubcategoryRepository _subcategoryRepository;
         protected readonly ITagRepository _tagRepository;
+        protected readonly IMeasurementUnitRepository _measurementUnitRepository;
 
         public CreateProductCommandHandler(
             IProductRepository productRepository,
             ISubcategoryRepository subcategoryRepository,
-            ITagRepository tagRepository) =>
-            (_productRepository, _subcategoryRepository, _tagRepository) =
-            (productRepository, subcategoryRepository, tagRepository);
+            ITagRepository tagRepository,
+            IMeasurementUnitRepository measurementUnitRepository) =>
+            (_productRepository, _subcategoryRepository,
+            _tagRepository, _measurementUnitRepository) =
+            (productRepository, subcategoryRepository, 
+            tagRepository, measurementUnitRepository);
 
         public async Task<ErrorOr<Guid>> Handle(CreateProductCommand request,
             CancellationToken cancellationToken)
@@ -35,10 +39,16 @@ namespace Replica.Application.Products.Commands.CreateProduct
                 Description = request.Description,
                 ImageUrl = request.ImageUrl,
                 Size = request.Size,
-                MeasurementUnits = request.MeasurementUnits,
                 Price = request.Price,
                 Subcategory = subcategory,
             };
+
+            var measurementUnit = await _measurementUnitRepository
+                .GetAsync(request.MeasurementUnitsId);
+            if (subcategory is null)
+                return Errors.MeasurementUnit.NotFound;
+            else product.MeasurementUnits = measurementUnit;
+
 
             if (request.TagsId is not null)
             {

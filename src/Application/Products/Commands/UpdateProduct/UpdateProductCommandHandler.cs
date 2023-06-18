@@ -3,7 +3,6 @@ using MediatR;
 using Replica.Application.Common.Interfaces.Repositories;
 using Replica.Domain.AppError;
 using Replica.Domain.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Replica.Application.Products.Commands.UpdateProduct
 {
@@ -13,13 +12,17 @@ namespace Replica.Application.Products.Commands.UpdateProduct
         protected readonly IProductRepository _productRepository;
         protected readonly ISubcategoryRepository _subcategoryRepository;
         protected readonly ITagRepository _tagRepository;
+        protected readonly IMeasurementUnitRepository _measurementUnitRepository;
 
         public UpdateProductCommandHandler(
             IProductRepository productRepository,
             ISubcategoryRepository subcategoryRepository,
-            ITagRepository tagRepository) =>
-            (_productRepository, _subcategoryRepository, _tagRepository) =
-            (productRepository, subcategoryRepository, tagRepository);
+            ITagRepository tagRepository,
+            IMeasurementUnitRepository measurementUnitRepository) =>
+            (_productRepository, _subcategoryRepository,
+            _tagRepository, _measurementUnitRepository) =
+            (productRepository, subcategoryRepository,
+            tagRepository, measurementUnitRepository);
 
         public async Task<ErrorOr<bool>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
@@ -37,10 +40,16 @@ namespace Replica.Application.Products.Commands.UpdateProduct
             product.Description = request.Description;
             product.ImageUrl = request.ImageUrl;
             product.Size = request.Size;
-            product.MeasurementUnits = request.MeasurementUnits;
             product.Price = request.Price;
             product.Subcategory = subcategory;
             product.ProductTags.Clear();
+
+            var measurementUnit = await _measurementUnitRepository
+                .GetAsync(request.MeasurementUnitsId);
+            if (subcategory is null)
+                return Errors.MeasurementUnit.NotFound;
+            else product.MeasurementUnits = measurementUnit;
+
 
             if (request.TagsId is not null)
             {

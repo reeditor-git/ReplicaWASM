@@ -132,8 +132,17 @@
   <data name="Category.NotFound" xml:space="preserve">
     <value>Категорія з таким ідентифікатором відсутня</value>
   </data>
+  <data name="ConfirmationStatus.NotFound" xml:space="preserve">
+    <value>Статус підтвердження з таким ідентифікатором відсутній</value>
+  </data>
+  <data name="MeasurementUnit.NotFound" xml:space="preserve">
+    <value>Одинииця виміру з таким ідентифікатором відсутня</value>
+  </data>
   <data name="Order.NotFound" xml:space="preserve">
     <value>Замовлення з таким ідентифікатором відсутнє</value>
+  </data>
+  <data name="PaymentStatus.NotFound" xml:space="preserve">
+    <value>Статус оплати з таким ідентифікатором відсутній</value>
   </data>
   <data name="Place.NotFound" xml:space="preserve">
     <value>Столик з таким ідентифікатором відсутній</value>

@@ -9,9 +9,13 @@ namespace Replica.Application.Orders.Commands.ChangeStatus
         : IRequestHandler<ChangeStatusCommand, ErrorOr<bool>>
     {
         protected readonly IOrderRepository _orderRepository;
+        protected readonly IConfirmationStatusRepository _confirmationStatusRepository;
 
-        public ChangeStatusCommandHandler(IOrderRepository orderRepository) =>
-            _orderRepository = orderRepository;
+        public ChangeStatusCommandHandler(
+            IOrderRepository orderRepository,
+            IConfirmationStatusRepository confirmationStatusRepository) =>
+            (_orderRepository, _confirmationStatusRepository) = 
+            (orderRepository, confirmationStatusRepository);
 
         public async Task<ErrorOr<bool>> Handle(ChangeStatusCommand request, 
             CancellationToken cancellationToken)
@@ -21,7 +25,13 @@ namespace Replica.Application.Orders.Commands.ChangeStatus
             if (order is null)
                 return Errors.Order.NotFound;
 
-            order.ConfirmationStatus = request.ConfirmationStatus;
+            var confirmationStatus = await _confirmationStatusRepository
+                .GetAsync(request.ConfirmationStatusId);
+
+            if (confirmationStatus is null)
+                return Errors.ConfirmationStatus.NotFound;
+
+            order.ConfirmationStatus = confirmationStatus;
 
             return await _orderRepository.UpdateAsync(order);
         }
