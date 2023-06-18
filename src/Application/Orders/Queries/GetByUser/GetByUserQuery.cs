@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
+using MediatR;
+using Replica.Domain.Entities;
 
 namespace Replica.Application.Orders.Queries.GetByUser
 {
-    internal class GetByUserQuery
+    public class GetByUserQuery : IRequest<ErrorOr<IEnumerable<Order>>>
     {
+        public Guid Id { get; set; }
     }
 }

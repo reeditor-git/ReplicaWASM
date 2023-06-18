@@ -9,11 +9,11 @@ namespace Replica.Domain.AppError
         {
             public static Error AlreadyExists = 
                 Error.Conflict("Category.AlreadyExists",
-                    description: Lang_Errors.Tag_AlreadyExists);
+                    description: Lang_Errors.Category_AlreadyExists);
 
             public static Error NotFound =
                 Error.Conflict("Category.NotFound",
-                    description: Lang_Errors.Tag_NotFound);
+                    description: Lang_Errors.Category_NotFound);
         }
     }
 }

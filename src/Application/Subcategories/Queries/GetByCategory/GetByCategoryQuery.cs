@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
+using MediatR;
+using Replica.Domain.Entities;
 
 namespace Replica.Application.Subcategories.Queries.GetByCategory
 {
-    internal class GetByCategoryQuery
+    public class GetByCategoryQuery : IRequest<ErrorOr<IEnumerable<Subcategory>>>
     {
+        public Guid Id { get; set; }
     }
 }

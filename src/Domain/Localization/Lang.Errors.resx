@@ -126,8 +126,29 @@
   <data name="Authentication.RefreshTokenExpired" xml:space="preserve">
     <value>Термін дії маркера оновлення минув</value>
   </data>
+  <data name="Category.AlreadyExists" xml:space="preserve">
+    <value>Категорія з таким ім'ям вже існує</value>
+  </data>
+  <data name="Category.NotFound" xml:space="preserve">
+    <value>Категорія з таким ідентифікатором відсутня</value>
+  </data>
+  <data name="Order.NotFound" xml:space="preserve">
+    <value>Замовлення з таким ідентифікатором відсутнє</value>
+  </data>
+  <data name="Place.NotFound" xml:space="preserve">
+    <value>Столик з таким ідентифікатором відсутній</value>
+  </data>
+  <data name="Product.NotFound" xml:space="preserve">
+    <value>Товар з таким ідентифікатором відсутній</value>
+  </data>
   <data name="Role.NotFound" xml:space="preserve">
     <value>Роль з таким ідентефікатором відсутня</value>
+  </data>
+  <data name="Subcategory.AlreadyExists" xml:space="preserve">
+    <value>Підкатегорія з таким ім'ям вже існує</value>
+  </data>
+  <data name="Subcategory.NotFound" xml:space="preserve">
+    <value>Підкатегорія з таким ідентифікатором відсутня</value>
   </data>
   <data name="Tag.AlreadyExists" xml:space="preserve">
     <value>Такий тег вже існує</value>

@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using Replica.Application.Common.Interfaces.Repositories;
+using Replica.Domain.Entities;
 
 namespace Replica.Application.Places.Queries.GetAllPlaces
 {
-    internal class GetAllPlacesQueryHandler
+    public class GetAllPlacesQueryHandler
+        : IRequestHandler<GetAllPlacesQuery, IEnumerable<Place>>
     {
+        protected readonly IPlaceRepository _placeRepository;
+
+        public GetAllPlacesQueryHandler(IPlaceRepository placeRepository) =>
+            _placeRepository = placeRepository;
+
+        public async Task<IEnumerable<Place>> Handle(GetAllPlacesQuery request,
+            CancellationToken cancellationToken) =>
+            await _placeRepository.GetAllAsync();
     }
 }

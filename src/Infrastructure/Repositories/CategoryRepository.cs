@@ -37,13 +37,15 @@ namespace Replica.Infrastructure.Repositories
         public async Task<IEnumerable<Category>> GetAllAsync() =>
             await _ctx.Categories.ToListAsync();
 
-        public async Task UpdateAsync(Category category)
+        public async Task<bool> UpdateAsync(Category category)
         {
             var updateCategory = await _ctx.Categories.FindAsync(category.Id);
 
             updateCategory = category;
 
             await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(true);
         }
     }
 }

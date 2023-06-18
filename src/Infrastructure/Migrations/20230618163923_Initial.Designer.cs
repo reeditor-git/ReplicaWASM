@@ -12,7 +12,7 @@ using Replica.Infrastructure.Context;
 namespace Replica.Infrastructure.Migrations
 {
     [DbContext(typeof(ReplicaDbContext))]
-    [Migration("20230616181538_Initial")]
+    [Migration("20230618163923_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -57,6 +57,9 @@ namespace Replica.Infrastructure.Migrations
                     b.Property<int>("ConfirmationStatus")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int");
 
@@ -83,9 +86,6 @@ namespace Replica.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Available")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -215,14 +215,20 @@ namespace Replica.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("6fa17fba-626d-481c-81cd-bbda29109fab"),
-                            Description = "Основний користувач системи, з усіма правами доступу.",
+                            Description = "Головний привілейований користувач системи, з усіма рівнями доступу.",
                             Name = "admin"
                         },
                         new
                         {
                             Id = new Guid("2bb5984d-3ff9-49c3-9e54-5dcff385fb98"),
-                            Description = "персонал лаунж-бару.",
+                            Description = "Керуючий персонал закладу.",
                             Name = "manager"
+                        },
+                        new
+                        {
+                            Id = new Guid("8d0bfe93-bd12-44d8-b64c-b18867b4dff2"),
+                            Description = "Персонал лаунж-бару.",
+                            Name = "staff"
                         },
                         new
                         {
@@ -398,7 +404,7 @@ namespace Replica.Infrastructure.Migrations
             modelBuilder.Entity("Replica.Domain.Entities.Subcategory", b =>
                 {
                     b.HasOne("Replica.Domain.Entities.Category", "Category")
-                        .WithMany("Subcategorys")
+                        .WithMany("Subcategories")
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
@@ -415,7 +421,7 @@ namespace Replica.Infrastructure.Migrations
 
             modelBuilder.Entity("Replica.Domain.Entities.Category", b =>
                 {
-                    b.Navigation("Subcategorys");
+                    b.Navigation("Subcategories");
                 });
 
             modelBuilder.Entity("Replica.Domain.Entities.Order", b =>

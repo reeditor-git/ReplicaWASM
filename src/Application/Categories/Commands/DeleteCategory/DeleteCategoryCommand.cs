@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
+using MediatR;
+using Replica.Domain.Entities;
 
 namespace Replica.Application.Categories.Commands.DeleteCategory
 {
-    internal class DeleteCategoryCommand
+    public class DeleteCategoryCommand : IRequest<ErrorOr<Category>>
     {
+        public Guid Id { get; set; }
     }
 }

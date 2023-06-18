@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
+using MediatR;
+using Replica.Domain.Entities;
 
 namespace Replica.Application.Places.Queries.GetPlace
 {
-    internal class GetPlaceQuery
+    public class GetPlaceQuery : IRequest<ErrorOr<Place>>
     {
+        public Guid Id { get; set; }
     }
 }

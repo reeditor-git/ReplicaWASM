@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
+using MediatR;
+using Replica.Domain.Entities;
 
 namespace Replica.Application.Products.Commands.DeleteProduct
 {
-    internal class DeleteProductCommand
+    public class DeleteProductCommand : IRequest<ErrorOr<Product>>
     {
+        public Guid Id { get; set; }
     }
 }

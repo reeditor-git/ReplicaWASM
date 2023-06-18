@@ -88,11 +88,74 @@ namespace Replica.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Категорія з таким ім&apos;ям вже існує.
+        /// </summary>
+        internal static string Category_AlreadyExists {
+            get {
+                return ResourceManager.GetString("Category.AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Категорія з таким ідентифікатором відсутня.
+        /// </summary>
+        internal static string Category_NotFound {
+            get {
+                return ResourceManager.GetString("Category.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Замовлення з таким ідентифікатором відсутнє.
+        /// </summary>
+        internal static string Order_NotFound {
+            get {
+                return ResourceManager.GetString("Order.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Столик з таким ідентифікатором відсутній.
+        /// </summary>
+        internal static string Place_NotFound {
+            get {
+                return ResourceManager.GetString("Place.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Товар з таким ідентифікатором відсутній.
+        /// </summary>
+        internal static string Product_NotFound {
+            get {
+                return ResourceManager.GetString("Product.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Роль з таким ідентефікатором відсутня.
         /// </summary>
         internal static string Role_NotFound {
             get {
                 return ResourceManager.GetString("Role.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Підкатегорія з таким ім&apos;ям вже існує.
+        /// </summary>
+        internal static string Subcategory_AlreadyExists {
+            get {
+                return ResourceManager.GetString("Subcategory.AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Підкатегорія з таким ідентифікатором відсутня.
+        /// </summary>
+        internal static string Subcategory_NotFound {
+            get {
+                return ResourceManager.GetString("Subcategory.NotFound", resourceCulture);
             }
         }
         

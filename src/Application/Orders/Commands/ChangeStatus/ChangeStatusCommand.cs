@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
+using MediatR;
+using Replica.Domain.Enums;
 
 namespace Replica.Application.Orders.Commands.ChangeStatus
 {
-    internal class ChangeStatusCommand
+    public class ChangeStatusCommand : IRequest<ErrorOr<bool>>
     {
+        public Guid Id { get; set; }
+
+        public ConfirmationStatus ConfirmationStatus { get; set; }
     }
 }

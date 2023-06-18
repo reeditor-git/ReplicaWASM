@@ -35,8 +35,7 @@ namespace Replica.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SeatingCapacity = table.Column<int>(type: "int", nullable: false),
-                    RentPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Available = table.Column<int>(type: "int", nullable: false)
+                    RentPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -168,7 +167,8 @@ namespace Replica.Infrastructure.Migrations
                     TotalCost = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     PaymentStatus = table.Column<int>(type: "int", nullable: false),
                     ConfirmationStatus = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -244,8 +244,9 @@ namespace Replica.Infrastructure.Migrations
                 values: new object[,]
                 {
                     { new Guid("1057c418-d34a-46ea-9e7b-b1dffd462a05"), "Звичайний користувач системи, клієнт.", "user" },
-                    { new Guid("2bb5984d-3ff9-49c3-9e54-5dcff385fb98"), "персонал лаунж-бару.", "manager" },
-                    { new Guid("6fa17fba-626d-481c-81cd-bbda29109fab"), "Основний користувач системи, з усіма правами доступу.", "admin" }
+                    { new Guid("2bb5984d-3ff9-49c3-9e54-5dcff385fb98"), "Керуючий персонал закладу.", "manager" },
+                    { new Guid("6fa17fba-626d-481c-81cd-bbda29109fab"), "Головний привілейований користувач системи, з усіма рівнями доступу.", "admin" },
+                    { new Guid("8d0bfe93-bd12-44d8-b64c-b18867b4dff2"), "Персонал лаунж-бару.", "staff" }
                 });
 
             migrationBuilder.CreateIndex(

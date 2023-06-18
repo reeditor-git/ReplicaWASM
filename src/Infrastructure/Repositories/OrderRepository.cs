@@ -34,13 +34,15 @@ namespace Replica.Infrastructure.Repositories
         public async Task<IEnumerable<Order>> GetAllAsync() =>
             await _ctx.Orders.ToListAsync();
 
-        public async Task UpdateAsync(Order order)
+        public async Task<bool> UpdateAsync(Order order)
         {
             var updateOrder = await _ctx.Orders.FindAsync(order.Id);
 
             updateOrder = order;
 
             await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(true);
         }
     }
 }

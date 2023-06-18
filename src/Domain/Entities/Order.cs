@@ -15,5 +15,7 @@ namespace Replica.Domain.Entities
         public ConfirmationStatus ConfirmationStatus { get; set; }
 
         public virtual User? User { get; set; }
+
+        public DateTime Created { get; set; }
     }
 }

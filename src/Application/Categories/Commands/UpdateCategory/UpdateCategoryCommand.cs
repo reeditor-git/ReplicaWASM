@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErrorOr;
+using MediatR;
 
 namespace Replica.Application.Categories.Commands.UpdateCategory
 {
-    internal class UpdateCategoryCommand
+    public class UpdateCategoryCommand : IRequest<ErrorOr<bool>>
     {
+        public Guid Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace Replica.Application.Common.Interfaces.Repositories
         Task DeleteAsync(Guid id);
         Task<Place> GetAsync(Guid id);
         Task<IEnumerable<Place>> GetAllAsync();
-        Task UpdateAsync(Place place);
+        Task<bool> UpdateAsync(Place place);
     }
 }
